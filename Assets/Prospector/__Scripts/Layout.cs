@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +45,6 @@ public class Layout : MonoBehaviour
             else
                 tSD.type = "slot";
 
-
             tSD.x = float.Parse(slotsX[i].att("x"));
             tSD.y = float.Parse(slotsX[i].att("y"));
             tSD.layerID = int.Parse(slotsX[i].att("layer"));
@@ -66,10 +64,12 @@ public class Layout : MonoBehaviour
                     }
                     slotDefs.Add(tSD);
                     break;
+
                 case "drawpile":
                     tSD.stagger.x = float.Parse(slotsX[i].att("xstagger"));
                     drawPile = tSD;
                     break;
+
                 case "discardpile":
                     discardPile = tSD;
                     break;
@@ -77,4 +77,3 @@ public class Layout : MonoBehaviour
         }
     }
 }
-
