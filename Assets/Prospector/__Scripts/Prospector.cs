@@ -33,6 +33,8 @@ public class Prospector : MonoBehaviour
 
     public string prospectorSceneName;
 
+    [Range(0f, 1f)] public float goldSpawnChance = .1f;
+
     [HideInInspector]
     public Deck deck;
 
@@ -149,16 +151,15 @@ public class Prospector : MonoBehaviour
 
         foreach (CardProspector tCP in tableau)
         {
-            // GOLD CARDS ---> //
-
-            if (Random.value <= .1f)
+            // GOLD CARDS ------------->
+            if (Random.value <= goldSpawnChance)
             {
                 print($"Turning {tCP.name} to gold!");
+                tCP.isGold = true;
                 tCP.back.GetComponent<SpriteRenderer>().sprite = deck.cardBackGold;
                 tCP.GetComponent<SpriteRenderer>().sprite = deck.cardFrontGold;
             }
-
-            // <--- GOLD CARDS //
+            // <----------- GOLD CARDS
 
             foreach (int hid in tCP.slotDef.hiddenBy)
             {
@@ -262,18 +263,13 @@ public class Prospector : MonoBehaviour
                 MoveToTarget(cd);
                 SetTableauFaces();
 
-                SpriteRenderer sRend = cd.back.GetComponent<SpriteRenderer>();
-                
-                if (sRend.sprite == deck.cardBackGold)
-                {
-                    ScoreManager.EVENT(eScoreEvent.mineGold);
-                    FloatingScoreHandler(eScoreEvent.mineGold);
-                }
-                else
-                {
-                    ScoreManager.EVENT(eScoreEvent.mine);
-                    FloatingScoreHandler(eScoreEvent.mine);
-                }
+                // <-------- checked card if it was a gold one, added to current run count
+                if (cd.isGold)
+                    ScoreManager.GOLD_CARDS_ACTIVE++;
+                // <--------- check card if it was a gold one, added to current run count
+
+                ScoreManager.EVENT(eScoreEvent.mine);
+                FloatingScoreHandler(eScoreEvent.mine);
                 break;
         }
         CheckForGameOver();
@@ -345,10 +341,18 @@ public class Prospector : MonoBehaviour
                     fsPts.Add(fsPosRun);
                     fsPts.Add(fsPosMid2);
                     fsPts.Add(fsPosEnd);
+
+                    // >-------- fsRun from mining previously -------->
+                    int modifiedTotal = fsRun.score * (int)Mathf.Pow(2, ScoreManager.GOLD_CARDS_ACTIVE);
+                    fsRun.score = modifiedTotal;
+                    print($"Total Score: {modifiedTotal} from score: {ScoreManager.SCORE} + gold cards: {ScoreManager.GOLD_CARDS_ACTIVE} ");
+                    // <--------- fsRun modified score added ----------<
+
                     fsRun.reportFinishTo = ScoreBoard.S.gameObject;
                     fsRun.Init(fsPts, 0, 1);
                     fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
                     fsRun = null;
+                    ScoreManager.GOLD_CARDS_ACTIVE = 0;
                 }
                 break;
 

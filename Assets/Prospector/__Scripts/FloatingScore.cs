@@ -30,6 +30,7 @@ public class FloatingScore : MonoBehaviour
     {
         if (state == eFSState.idle) return;
         float u = (Time.time - timeStart) / timeDuration;
+        
         float uC = Mathf.Clamp01(easingCurve.Evaluate(u));
 
         if (u < 0)
@@ -46,7 +47,6 @@ public class FloatingScore : MonoBehaviour
                 if (reportFinishTo != null)
                 {
                     reportFinishTo.SendMessage("FSCallBack", this);
-                    print($"Floating Score Recieved Callback!");
                     Destroy(gameObject);
                 }
                 else
