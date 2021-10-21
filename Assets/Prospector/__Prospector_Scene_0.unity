@@ -845,7 +845,7 @@ MonoBehaviour:
   roundResultText: {fileID: 485533353}
   highScoreText: {fileID: 1369287903}
   prospectorSceneName: __Prospector_Scene_0
-  goldSpawnChance: 0.5
+  goldSpawnChance: 0.1
   deck: {fileID: 0}
   layout: {fileID: 0}
   drawPile: []
