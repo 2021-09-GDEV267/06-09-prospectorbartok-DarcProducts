@@ -29,7 +29,7 @@ public class Prospector : MonoBehaviour
 
     public float reloadDelay = 2f;
 
-    public TMP_Text gameOverText, roundResultText, highScoreText;
+    public TMP_Text gameOverText, roundResultText, highScoreText, currentGoldText;
 
     public string prospectorSceneName;
 
@@ -265,7 +265,10 @@ public class Prospector : MonoBehaviour
 
                 // <-------- checked card if it was a gold one, added to current run count
                 if (cd.isGold)
+                {
                     ScoreManager.GOLD_CARDS_ACTIVE++;
+                    currentGoldText.text = $"Current Gold: {ScoreManager.GOLD_CARDS_ACTIVE}";
+                }
                 // <--------- check card if it was a gold one, added to current run count
 
                 ScoreManager.EVENT(eScoreEvent.mine);
@@ -343,7 +346,7 @@ public class Prospector : MonoBehaviour
                     fsPts.Add(fsPosEnd);
 
                     // >-------- fsRun from mining previously -------->
-                    int modifiedTotal = fsRun.score * (int)Mathf.Pow(2, ScoreManager.GOLD_CARDS_ACTIVE);
+                    int modifiedTotal = fsRun.score * Mathf.CeilToInt(Mathf.Pow(2, ScoreManager.GOLD_CARDS_ACTIVE));
                     fsRun.score = modifiedTotal;
                     print($"Total Score: {modifiedTotal} from score: {ScoreManager.SCORE} + gold cards: {ScoreManager.GOLD_CARDS_ACTIVE} ");
                     // <--------- fsRun modified score added ----------<
@@ -353,6 +356,7 @@ public class Prospector : MonoBehaviour
                     fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
                     fsRun = null;
                     ScoreManager.GOLD_CARDS_ACTIVE = 0;
+                    currentGoldText.text = $"Current Gold: {ScoreManager.GOLD_CARDS_ACTIVE}";
                 }
                 break;
 
