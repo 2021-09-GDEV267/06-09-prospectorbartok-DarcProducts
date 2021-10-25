@@ -7,6 +7,7 @@ public class Prospector : MonoBehaviour
 {
     static public Prospector S;
 
+    public bool isDarcSolitaire = false;
     [Header("Set in Inspector")]
     public TextAsset deckXML;
 
@@ -268,6 +269,8 @@ public class Prospector : MonoBehaviour
                 if (cd.isGold)
                 {
                     currentGoldCards++;
+                    if (isDarcSolitaire)
+                        currentGoldText.text = $"Current Gold: {currentGoldCards}";
                     currentGoldText.text = $"Current Gold: {currentGoldCards}";
                 }
                 // <--------- check card if it was a gold one, added to current run count
@@ -307,7 +310,7 @@ public class Prospector : MonoBehaviour
             int currentScore = fsRun.score;
             int modifiedTotal = currentScore * Mathf.CeilToInt(Mathf.Pow(2, currentGoldCards));
             fsRun.score = modifiedTotal;
-            print($"Total Score: {modifiedTotal} from score: {currentScore} + gold cards: {currentGoldCards} ");
+            print($"Total Score: {modifiedTotal} from score: {currentScore} + gold(blood) cards: {currentGoldCards} ");
             score += modifiedTotal;
             // <---- adding total score before ending game <----
         }
@@ -358,11 +361,12 @@ public class Prospector : MonoBehaviour
                     fsRun.Init(fsPts, 0, 1);
                     fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
                     fsRun = null;
-                    
-                    // >--------- reset gold stuff for new run ---->
+
+                    if (isDarcSolitaire)
+                        currentGoldText.text = $"Current Blood: 0";
+                    else
+                        currentGoldCards = 0;
                     currentGoldCards = 0;
-                    currentGoldText.text = $"Current Gold: 0";
-                    // <---------  reset gold stuff for new run ----<
                 }
                 break;
 

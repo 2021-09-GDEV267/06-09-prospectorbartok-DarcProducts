@@ -10,7 +10,7 @@
   <!-- faceup is 1 if the card is face-up -->
   <!-- layer sets the depth layer so cards overlap properly -->
   <!-- hiddenby is the ids of cards that keep a card face-down -->
-  <!-- layers = Row0 : 0, Row1 : 1, Row2 : 2, Row3 : 3, Discard : 4, Draw : 5, Row4 : 6, Row5 : 7, Row6 : 8, Row7 : 9-->
+  <!-- layers = Row0 : 0, Row1 : 1, Row2 : 2, Row3 : 3, Discard : 4, Draw : 5, Row4 : 6, Row5 : 7, Row6 : 8, Row7 : 9 -->
 
   <!-- Column 0 -->
   <slot id="0" x="-6" y="0" faceup="1" layer="3"/>
@@ -39,7 +39,7 @@
   
   <!-- Column 5 -->
   <slot id="5" x="4" y="0" faceup="0" layer="3" hiddenby="25,23,20,16,11"/>
-  <slot id="11" x="4" y="-1" faceup="0" layer="4" hiddenby="25,23,20,16,11"/>
+  <slot id="11" x="4" y="-1" faceup="0" layer="4" hiddenby="25,23,20,16"/>
   <slot id="16" x="4" y="-2" faceup="0" layer="5" hiddenby="25,23,20"/>
   <slot id="20" x="4" y="-3" faceup="0" layer="6" hiddenby="25,23"/>
   <slot id="23" x="4" y="-4" faceup="0" layer="7" hiddenby="25"/>
