@@ -338,7 +338,7 @@ public class Prospector : MonoBehaviour
                 roundResultText.text = str;
             }
             else
-                roundResultText.text = $"Your final score was: {score}";
+                roundResultText.text = $"Your final score was: {score}\nbut you didn't win...";
             ShowResultsUI(true);
             print($"Game Over! You Lost!");
             ScoreManager.EVENT(eScoreEvent.gameLose);
@@ -371,7 +371,7 @@ public class Prospector : MonoBehaviour
                     if (isDarcSolitaire)
                         currentGoldText.text = $"Current Blood: 0";
                     else
-                        currentGoldCards = 0;
+                        currentGoldText.text = $"Current Gold: 0";
                     currentGoldCards = 0;
                 }
                 break;
