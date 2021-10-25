@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardProspector : Card
 {
     [HideInInspector]
-    public eCardState state = eCardState.drawpile;
+    public eCardState state;
     [HideInInspector]
     public List<CardProspector> hiddenBy = new List<CardProspector>();
     [HideInInspector]

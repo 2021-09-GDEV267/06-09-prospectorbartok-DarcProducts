@@ -10,7 +10,7 @@ public enum eCardState
 }
 
 public class Card : MonoBehaviour
-{
+{    
     public string suit;
     public int rank;
     public Color color = Color.black;

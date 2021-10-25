@@ -301,7 +301,16 @@ public class Prospector : MonoBehaviour
     void GameOver(bool won)
     {
         int score = ScoreManager.SCORE;
-        if (fsRun != null) score += fsRun.score;
+        if (fsRun != null)
+        {
+            // ----> moved score to increase here to fix bug with score not adding before game ends ---->
+            int currentScore = fsRun.score;
+            int modifiedTotal = currentScore * Mathf.CeilToInt(Mathf.Pow(2, currentGoldCards));
+            fsRun.score = modifiedTotal;
+            print($"Total Score: {modifiedTotal} from score: {currentScore} + gold cards: {currentGoldCards} ");
+            score += modifiedTotal;
+            // <---- adding total score before ending game <----
+        }
         if (won)
         {
             gameOverText.text = "Round Over";
@@ -345,14 +354,6 @@ public class Prospector : MonoBehaviour
                     fsPts.Add(fsPosRun);
                     fsPts.Add(fsPosMid2);
                     fsPts.Add(fsPosEnd);
-
-                    // >-------- fsRun from mining previously -------->
-                    int currentScore = fsRun.score;
-                    int modifiedTotal = currentScore * Mathf.CeilToInt(Mathf.Pow(2, currentGoldCards));
-                    fsRun.score = modifiedTotal;
-                    print($"Total Score: {modifiedTotal} from score: {currentScore} + gold cards: {currentGoldCards} ");
-                    // <--------- fsRun modified score added ----------<
-
                     fsRun.reportFinishTo = ScoreBoard.S.gameObject;
                     fsRun.Init(fsPts, 0, 1);
                     fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
