@@ -58,6 +58,8 @@ public class Prospector : MonoBehaviour
 
     FloatingScore fsRun;
 
+    public static int currentGoldCards = 0;
+
     void Awake()
     {
         if (S == null)
@@ -201,7 +203,6 @@ public class Prospector : MonoBehaviour
         cd.state = eCardState.discard;
         discardPile.Add(cd);
         cd.transform.parent = layoutAnchor;
-
         cd.transform.localPosition = new Vector3(layout.multiplier.x * layout.discardPile.x, layout.multiplier.y * layout.discardPile.y, -layout.discardPile.layerID + .5f);
         cd.faceUp = true;
         cd.SetSortingLayerName(layout.discardPile.layerName);
@@ -266,8 +267,8 @@ public class Prospector : MonoBehaviour
                 // <-------- checked card if it was a gold one, added to current run count
                 if (cd.isGold)
                 {
-                    ScoreManager.GOLD_CARDS_ACTIVE++;
-                    currentGoldText.text = $"Current Gold: {ScoreManager.GOLD_CARDS_ACTIVE}";
+                    currentGoldCards++;
+                    currentGoldText.text = $"Current Gold: {currentGoldCards}";
                 }
                 // <--------- check card if it was a gold one, added to current run count
 
@@ -328,7 +329,7 @@ public class Prospector : MonoBehaviour
         Invoke("ReloadLevel", reloadDelay);
     }
 
-    void ReloadLevel() => SceneManager.LoadScene(0);
+    public void ReloadLevel() => SceneManager.LoadScene(prospectorSceneName);
 
     void FloatingScoreHandler(eScoreEvent evt)
     {
@@ -346,17 +347,21 @@ public class Prospector : MonoBehaviour
                     fsPts.Add(fsPosEnd);
 
                     // >-------- fsRun from mining previously -------->
-                    int modifiedTotal = fsRun.score * Mathf.CeilToInt(Mathf.Pow(2, ScoreManager.GOLD_CARDS_ACTIVE));
+                    int currentScore = fsRun.score;
+                    int modifiedTotal = currentScore * Mathf.CeilToInt(Mathf.Pow(2, currentGoldCards));
                     fsRun.score = modifiedTotal;
-                    print($"Total Score: {modifiedTotal} from score: {ScoreManager.SCORE} + gold cards: {ScoreManager.GOLD_CARDS_ACTIVE} ");
+                    print($"Total Score: {modifiedTotal} from score: {currentScore} + gold cards: {currentGoldCards} ");
                     // <--------- fsRun modified score added ----------<
 
                     fsRun.reportFinishTo = ScoreBoard.S.gameObject;
                     fsRun.Init(fsPts, 0, 1);
                     fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
                     fsRun = null;
-                    ScoreManager.GOLD_CARDS_ACTIVE = 0;
-                    currentGoldText.text = $"Current Gold: {ScoreManager.GOLD_CARDS_ACTIVE}";
+                    
+                    // >--------- reset gold stuff for new run ---->
+                    currentGoldCards = 0;
+                    currentGoldText.text = $"Current Gold: 0";
+                    // <---------  reset gold stuff for new run ----<
                 }
                 break;
 

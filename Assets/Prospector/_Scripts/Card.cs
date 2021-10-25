@@ -1,6 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum eCardState
+{
+    drawpile,
+    tableau,
+    target,
+    discard
+}
+
 public class Card : MonoBehaviour
 {
     public string suit;
@@ -12,21 +20,14 @@ public class Card : MonoBehaviour
     public List<GameObject> pipGOs = new List<GameObject>();
 
     public GameObject back;  // back of card;
-    public CardDefinition def;  // from DeckXML.xml
+    public CardDefinition def;  // from Darc_DeckXML.xml
 
     public SpriteRenderer[] spriteRenderers;
 
     public bool faceUp
     {
-        get
-        {
-            return (!back.activeSelf);
-        }
-
-        set
-        {
-            back.SetActive(!value);
-        }
+        get { return !back.activeSelf; }
+        set { back.SetActive(!value); }
     }
 
     // Use this for initialization
@@ -71,16 +72,13 @@ public class Card : MonoBehaviour
         }
     }
 
-    public virtual void OnMouseUpAsButton()
-    {
-        //print(name);
-    }
+    public virtual void OnMouseUpAsButton() => print(name);
 } // class Card
 
 [System.Serializable]
 public class Decorator
 {
-    public string type;         // For card pips, tyhpe = "pip"
+    public string type;         // For card pips, type = "pip"
     public Vector3 loc;         // location of sprite on the card
     public bool flip = false;   //whether to flip vertically
     public float scale = 1.0f;
@@ -91,6 +89,6 @@ public class CardDefinition
 {
     public string face; //sprite to use for face cart
     public int rank;    // value from 1-13 (Ace-King)
-
     public List<Decorator> pips = new List<Decorator>();  // Pips Used
 }
+

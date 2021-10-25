@@ -25,15 +25,19 @@ public class Deck : MonoBehaviour
     public GameObject prefabCard;
 
     [Header("Set Dynamically")]
+    [HideInInspector]
     public PT_XMLReader xmlr;
-
-    // add from p 569
+    [HideInInspector]
     public List<string> cardNames;
-
+    [HideInInspector]
     public List<Card> cards;
+    [HideInInspector]
     public List<Decorator> decorators;
+    [HideInInspector]
     public List<CardDefinition> cardDefs;
+    [HideInInspector]
     public Transform deckAnchor;
+    [HideInInspector]
     public Dictionary<string, Sprite> dictSuits;
 
     // called by Prospector when it is ready

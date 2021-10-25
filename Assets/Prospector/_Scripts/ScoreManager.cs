@@ -7,7 +7,6 @@ public class ScoreManager : MonoBehaviour
     static ScoreManager S;
     public static int SCORE_FROM_PREV_ROUND = 0;
     public static int HIGH_SCORE = 100;
-    public static int GOLD_CARDS_ACTIVE = 0;
     public string highScoreKeyString = "ProspectorHighScore";
 
     int chain = 0;
@@ -72,7 +71,7 @@ public class ScoreManager : MonoBehaviour
                 break;
 
             default:
-                print($"Score: {score} scoreRun: {scoreRun} chain: {chain} gold cards: {GOLD_CARDS_ACTIVE}");
+                print($"Score: {score} scoreRun: {scoreRun} chain: {chain} gold cards: {Prospector.currentGoldCards}");
                 break;
         }
     }

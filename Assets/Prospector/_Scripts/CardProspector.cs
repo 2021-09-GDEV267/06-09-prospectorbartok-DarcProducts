@@ -1,22 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum eCardState
-{
-    drawpile,
-    tableau,
-    target,
-    discard
-}
-
 public class CardProspector : Card
 {
-    [Header("Set Dynamically : CardProspector")]
+    [HideInInspector]
     public eCardState state = eCardState.drawpile;
-
+    [HideInInspector]
     public List<CardProspector> hiddenBy = new List<CardProspector>();
+    [HideInInspector]
     public int layoutID;
+    [HideInInspector]
     public SlotDef slotDef;
+    [HideInInspector]
     public bool isGold = false;
 
     public override void OnMouseUpAsButton()
