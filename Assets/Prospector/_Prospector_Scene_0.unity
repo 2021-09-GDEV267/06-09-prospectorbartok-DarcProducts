@@ -1102,6 +1102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d7d9d9d58522f4cb96693ace07ad24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDarcSolitaire: 0
   deckXML: {fileID: 4900000, guid: c76312a0fb08948699e1abf935e4a957, type: 3}
   layoutXML: {fileID: 4900000, guid: 61f3f05951a2f4d98b35bddbc7549908, type: 3}
   xOffset: 3
@@ -1112,6 +1113,7 @@ MonoBehaviour:
   fsPosMid2: {x: 0.4, y: 1}
   fsPosEnd: {x: 0.5, y: 0.95}
   reloadDelay: 6
+  gameOverPanel: {fileID: 0}
   gameOverText: {fileID: 935610047}
   roundResultText: {fileID: 485533353}
   highScoreText: {fileID: 1369287903}

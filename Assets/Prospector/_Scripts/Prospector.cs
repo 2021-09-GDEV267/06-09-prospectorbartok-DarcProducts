@@ -30,6 +30,7 @@ public class Prospector : MonoBehaviour
 
     public float reloadDelay = 2f;
 
+    public GameObject gameOverPanel;
     public TMP_Text gameOverText, roundResultText, highScoreText, currentGoldText;
 
     public string prospectorSceneName;
@@ -103,10 +104,15 @@ public class Prospector : MonoBehaviour
 
     void ShowResultsUI(bool show)
     {
-        if (gameOverText != null)
-            gameOverText.gameObject.SetActive(show);
-        if (roundResultText != null)
-            roundResultText.gameObject.SetActive(show);
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(show);
+        else
+        {
+            if (gameOverText != null)
+                gameOverText.gameObject.SetActive(show);
+            if (roundResultText != null)
+                roundResultText.gameObject.SetActive(show);
+        }
     }
 
     List<CardProspector> ConvertListCardsToListCardProspectors(List<Card> lCD)
