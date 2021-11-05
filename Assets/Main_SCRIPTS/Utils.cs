@@ -230,10 +230,7 @@ public class Utils : MonoBehaviour {
 		}
 		return( mats.ToArray() );
 	}
-	
-	
-	
-	
+		
 //============================ Linear Interpolation ============================
 	
 	// The standard Vector Lerp functions in Unity don't allow for extrapolation
@@ -242,6 +239,10 @@ public class Utils : MonoBehaviour {
 		Vector3 res = (1-u)*vFrom + u*vTo;
 		return( res );
 	}
+
+	public static Quaternion Lerp(Quaternion quaternion1,Quaternion quaternion2, float amount) =>
+		Quaternion.Slerp(quaternion1, quaternion2, amount);
+	
 	// The same function for Vector2
 	static public Vector2 Lerp (Vector2 vFrom, Vector2 vTo, float u) {
 		Vector2 res = (1-u)*vFrom + u*vTo;
@@ -251,9 +252,7 @@ public class Utils : MonoBehaviour {
 	static public float Lerp (float vFrom, float vTo, float u) {
 		float res = (1-u)*vFrom + u*vTo;
 		return( res );
-	}
-	
-	
+	}	
 	
 //============================ Bézier Curves ============================
 	
@@ -275,12 +274,34 @@ public class Utils : MonoBehaviour {
 		Vector3 res = Lerp( Bezier(u, vListL), Bezier(u, vListR), u );
 		return( res );
 	}
-	
+
+	// The same two functions for Quaternion
+	static public Quaternion Bezier(float u, List<Quaternion> vList)
+	{
+		// If there is only one element in vList, return it
+		if (vList.Count == 1)
+		{
+			return (vList[0]);
+		}
+		// Otherwise, create vListR, which is all but the 0th element of vList
+		// e.g. if vList = [0,1,2,3,4] then vListR = [1,2,3,4]
+		List<Quaternion> vListR = vList.GetRange(1, vList.Count - 1);
+		// And create vListL, which is all but the last element of vList
+		// e.g. if vList = [0,1,2,3,4] then vListL = [0,1,2,3]
+		List<Quaternion> vListL = vList.GetRange(0, vList.Count - 1);
+		// The result is the Slerp of these two shorter Lists
+		// It's possible that Quaternion.Slerp may clamp u to [0..1] :(
+		Quaternion res = Quaternion.Slerp(Bezier(u, vListL), Bezier(u, vListR), u);
+		return (res);
+	}
+
+	// This version allows an Array or a series of Quaternions as input
+	static public Quaternion Bezier(float u, params Quaternion[] vecs) =>  (Bezier(u, new List<Quaternion>(vecs)));
+
 	// This version allows an Array or a series of Vector3s as input
 	static public Vector3 Bezier( float u, params Vector3[] vecs ) {
 		return( Bezier( u, new List<Vector3>(vecs) ) );
 	}
-	
 	
 	// The same two functions for Vector2
 	static public Vector2 Bezier( float u, List<Vector2> vList ) {

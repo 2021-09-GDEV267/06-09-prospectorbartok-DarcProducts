@@ -4,6 +4,7 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
     [Header("Set in Inspector")]
+    public bool startFaceUp = false;
     //Suits
     public Sprite suitClub;
 
@@ -271,7 +272,10 @@ public class Deck : MonoBehaviour
             tSR.sortingOrder = 2;
             tGO.name = "back";
             card.back = tGO;
-            card.faceUp = false;
+            if (!startFaceUp)
+                card.faceUp = false;
+            else
+                card.faceUp = true;
 
             cards.Add(card);
         } // for all the Cardnames
