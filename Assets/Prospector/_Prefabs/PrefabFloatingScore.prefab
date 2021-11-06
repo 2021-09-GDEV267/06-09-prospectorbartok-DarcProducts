@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 1556333935787208720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 320, y: 36}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1556333935787208735
 CanvasRenderer:
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -162,23 +162,14 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.26250684
-      value: 0.6310047
-      inSlope: 0.35502064
-      outSlope: 0.35502064
+      time: 0.122465365
+      value: 0.5555264
+      inSlope: 1.5380036
+      outSlope: 1.5380036
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.47863322
       outWeight: 0.13144362
-    - serializedVersion: 3
-      time: 0.94248104
-      value: 0.86171114
-      inSlope: 0.49272713
-      outSlope: 0.49272713
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07480939
-      outWeight: 1
     - serializedVersion: 3
       time: 1
       value: 1
