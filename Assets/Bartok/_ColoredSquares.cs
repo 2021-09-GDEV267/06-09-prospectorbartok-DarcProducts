@@ -7,7 +7,7 @@ public class _ColoredSquares : MonoBehaviour
     [SerializeField] SpriteRenderer[] targets;
     [SerializeField] TMP_Text colorChangeCounter;
     [SerializeField] float moveSpeed;
-    Color[] colors = new Color[] { Color.blue, Color.red, Color.yellow, Color.green };
+    Color[] colors;
     SpriteRenderer target;
     Color currentColor;
     int counter = 0;
@@ -15,7 +15,9 @@ public class _ColoredSquares : MonoBehaviour
     void Start()
     {
         SetNewTarget();
-        
+        colors = new Color[targets.Length];
+        for (int i = 0; i < targets.Length; i++)
+            colors[i] = targets[i].color;
         SpriteRenderer mSRend = currentObject.GetComponent<SpriteRenderer>();
         if (mSRend != null)
             currentColor = mSRend.color = colors[Random.Range(0, colors.Length)];
